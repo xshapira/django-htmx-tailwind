@@ -10,11 +10,8 @@ def index(request):
 
 @require_http_methods(['POST'])
 def search(request):
-    res_todos = []
     search = request.POST['search']
     if len(search) == 0:
         return render(request, 'todo.html', {'todos': []})
-    for i in todos:
-        if search in i['title']:
-            res_todos.append(i)
+    res_todos = [i for i in todos if search in i['title']]
     return render(request, 'todo.html', {'todos': res_todos})
